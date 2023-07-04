@@ -87,10 +87,10 @@ class BotInterface():
                                 add_user(engine, event.user_id, user['id'])
                                 break
                         else:
+                            self.offset += 10
                             self.users = self.vk_tools.serch_users(self.params, self.offset)
 
                     photo_str = self.photo_for_user(user)
-                    self.offset += 10
 
                     self.message_send(event.user_id,
                                       f'Посмотри {user["name"]} страница vk.com/id{user["id"]}',
