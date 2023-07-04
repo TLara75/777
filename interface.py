@@ -27,19 +27,7 @@ class BotInterface():
                               )
 
     def missing_user_data(self, event):
-        if self.params['name'] is None:
-            self.message_send(event.user_id, 'Укажите Ваше имя и фамилию:')
-            for event in self.longpoll.listen():
-                if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                    return event.text
-
-        elif self.params['sex'] is None:
-            self.message_send(event.user_id, 'Укажите Ваш пол (1-ж, 2-м):')
-            for event in self.longpoll.listen():
-                if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                    return int(event.text)
-
-        elif self.params['city'] is None:
+        if self.params['city'] is None:
             self.message_send(event.user_id, 'Укажите Ваш город:')
             for event in self.longpoll.listen():
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
@@ -64,10 +52,7 @@ class BotInterface():
                 command = event.text.lower()
                 if command == 'привет':
                     self.params = self.vk_tools.get_profile_info(event.user_id)
-                    if self.params["name"] is None:
-                        self.message_send(event.user_id, 'Здравствуй')
-                    else:
-                        self.message_send(event.user_id, f'Здравствуй {self.params["name"]}')
+                    self.message_send(event.user_id, f'Здравствуй {self.params["name"]}')
                     # Недостающие данные
                     self.keys = self.params.keys()
                     for i in self.keys:
